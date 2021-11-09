@@ -11,7 +11,13 @@ const API_URL_EVENTS = "http://localhost:5000/api/events/"
 
 //get user directory 
 const getUserDirectory = (id) => {
-    return axios.get(API_URL_PROFILE + id);
+    return axios.get(API_URL_PROFILE + id, { headers: authHeader() });
+}
+
+const getUserSearch = (search) => {
+    return axios.get(API_URL_PROFILE+"search/"+search
+    //, { headers: authHeader() }
+    );
 }
 
 
@@ -26,9 +32,22 @@ const postUserDirectory = (id, houseNo, adLine1, adLine2, postcode, city, countr
         country,
         mobile,
         landline
-    })
+    }, { headers: authHeader() })
 }
 
+//let user update their directory
+const putUserDirectory = (id, houseNo, adLine1, adLine2, postcode, city, country, mobile, landline) => {
+    return axios.put(API_URL_PROFILE+id, {
+        houseNo,
+        adLine1,
+        adLine2,
+        postcode,
+        city,
+        country,
+        mobile,
+        landline
+    }, { headers: authHeader() })
+}
 
 //create event
 
@@ -54,13 +73,37 @@ const getEventsDetail = (id) => {
     return axios.get(API_URL_EVENTS+id);
 }
 
+//update event 
+
+const postEventEdit = (id, title, desc, venue, address, postcode, date) => {
+    return axios.post(API_URL_EVENTS+id, {
+        title,
+        desc,
+        venue,
+        address,
+        postcode,
+        //image: {type: Buffer},
+        date,
+        //links
+    }, { headers: authHeader() });
+}
+
+//delete event 
+const deleteEvent = (id) => {
+    return axios.delete(API_URL_EVENTS+id);
+}
+
 
 export default {
     //getUserInfo,
     getUserDirectory,
+    getUserSearch,
     postUserDirectory,
+    putUserDirectory,
     postEvent,
     getEvents,
-    getEventsDetail
+    getEventsDetail,
+    postEventEdit,
+    deleteEvent
 
   };

@@ -12,6 +12,8 @@ import Profile from "./components/profile";
 import Events from "./components/events";
 import EventsNew from "./components/EventsNew";
 import EventsDetail from "./components/EventsDetail";
+import Directory from "./components/Directory";
+import Contact from "./components/Contact";
 //import Posts from "./components/Posts";
 //import CreateBlog from "./components/Createblog";
 
@@ -36,8 +38,9 @@ const App = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
+      <nav className="navbar navbar-expand navbar-light bg-light">
         <Link to={"/"} className="navbar-brand">
+          <img className="nav-logo" src="/prayer-samaj.svg" alt="prayer hands - bhakta samaj logo"/>
           Bhakta Samaj UK
         </Link>
         <div className="navbar-nav mr-auto">
@@ -53,6 +56,16 @@ const App = () => {
             <li className="nav-item">
               <Link to={"/events"} className="nav-link">
                 Events
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/directory"} className="nav-link">
+                Directory
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link to={"/contact"} className="nav-link">
+                Contact
               </Link>
             </li>
             <li className="nav-item">
@@ -88,11 +101,13 @@ const App = () => {
           <Route exact path={["/", "/home"]} component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/events" component={Events}/>
+          <Route exact path="/events/:id/edit" component={EventsNew} />
           <Route exact path="/events/new" component={EventsNew}/>
           <Route exact path="/events/:id" component={EventsDetail} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile/:id" component={Profile} />
-
+          <Route exact path="/contact" component={Contact} />
+          <Route exact path="/directory" component={Directory} />
         </Switch>
       </div>
     </div>

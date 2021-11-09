@@ -112,25 +112,47 @@ const onChangeAdLine2 = (e) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      UserService.postUserDirectory(id, houseNo, adLine1, adLine2, postcode, city, country, mobile, landline).then(
-        (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-         //props.history.push("/");
-          window.location.reload();
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
-      );
+      if(editActive){
+        UserService.putUserDirectory(id, houseNo, adLine1, adLine2, postcode, city, country, mobile, landline).then(
+          (response) => {
+            setMessage(response.data.message);
+            setSuccessful(true);
+           //props.history.push("/");
+            window.location.reload();
+          },
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            setMessage(resMessage);
+            setSuccessful(false);
+          }
+        );
+      } else if(!editActive){
+        UserService.postUserDirectory(id, houseNo, adLine1, adLine2, postcode, city, country, mobile, landline).then(
+          (response) => {
+            setMessage(response.data.message);
+            setSuccessful(true);
+           //props.history.push("/");
+            window.location.reload();
+          },
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            setMessage(resMessage);
+            setSuccessful(false);
+          }
+        );
+      }
     }
   };
 

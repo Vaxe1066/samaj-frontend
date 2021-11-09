@@ -18,10 +18,45 @@ const EventsNew = (props) => {
   const [venue, setVenue] = useState("");
   const [address, setAddress] = useState("");
   const [postcode, setPostcode] = useState("");
-  const [date, setDate] = useState(undefined);
+  const [date, setDate] = useState("");
   const [links, setLinks] = useState([]);
+  const [curEvent, setCurEvent] = useState([]);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+
+  let { id } = useParams();
+
+  useEffect(() => {
+    if(id){
+      UserService.getEventsDetail(id).then(
+        (response) => {
+          //if (response.data.length>0){
+            setCurEvent(response.data)
+            setTitle(response.data.title);
+            setDesc(response.data.desc);
+            setVenue(response.data.venue);
+            setPostcode(response.data.postcode);
+            setDate(response.data.date);
+            setAddress(response.data.address);
+          //}
+
+        
+        },
+        (error) => {
+            const _content =
+              (error.response && error.response.data) ||
+              error.message ||
+              error.toString();
+    
+              setCurEvent(_content);
+          }  
+    );
+    }
+
+
+
+  }, [id, successful]);
+
 
   const onChangeTitle = (e) => {
       const title = e.target.value;
@@ -64,23 +99,48 @@ const EventsNew = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      UserService.postEvent( title, desc, venue, address, postcode, date).then(
-        (response) => {
-          setMessage(response.data.message);
-          setSuccessful(true);
-        },
-        (error) => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
+      if(id){
+        UserService.postEventEdit(id, title, desc, venue, address, postcode, date).then(
+          (response) => {
+            setMessage(response.data.message);
+            setSuccessful(true);
+          },
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            setMessage(resMessage);
+            setSuccessful(false);
+            console.log("id")
+          }
+        );
+      } else{
+        UserService.postEvent( title, desc, venue, address, postcode, date).then(
+          (response) => {
+            setMessage(response.data.message);
+            setSuccessful(true);
+          },
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+            setMessage(resMessage);
+            setSuccessful(false);
+            console.log("not id")
+          }
+        );
+      }
 
-          setMessage(resMessage);
-          setSuccessful(false);
-        }
-      );
+
+
     }
   };
 

@@ -59,14 +59,17 @@ const Events = (props) => {
         </div>
         : "") : ""}
 
-        {allEvents.length>0 ?
+        {user && user.role!=="NONE" && allEvents.length>0 ?
            allEvents.map((item)=> {
                return (
                 <div className="card" key={item._id}>
                     <a href={"events/"+item._id}>{item.title}</a>
                 </div> )
             })    
-            : ""}
+            : ((user && user.role!=="NONE" && allEvents.length===0) ? 
+                <p className="alert alert-success">There are no upcoming events to display!</p> :
+            <p className="alert alert-danger">Events can only be viewed by verified members</p> )
+        }
       </header>
     </div>
   );

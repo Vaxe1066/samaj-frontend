@@ -5,6 +5,7 @@ import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
 
 import AuthService from "../services/auth.service";
+import { useEffect } from "react/cjs/react.development";
 
 const required = (value) => {
   if (!value) {
@@ -37,7 +38,6 @@ const validEmail = (value) => {
   }
 };
 
-
 const vpassword = (value) => {
   if (value.length < 6 || value.length > 40) {
     return (
@@ -48,6 +48,10 @@ const vpassword = (value) => {
   }
 };
 
+
+
+
+
 const Register = (props) => {
   const form = useRef();
   const checkBtn = useRef();
@@ -56,6 +60,8 @@ const Register = (props) => {
   const [lastname, setLastname] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConf, setPasswordConf] = useState("");
+  const [passwordMatch, setPasswordMatch] = useState(undefined);
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -79,6 +85,23 @@ const Register = (props) => {
     setPassword(password);
   };
 
+  const onChangePasswordConf = (e) => {
+    const password = e.target.value;
+    setPasswordConf(password);
+  };
+
+  const checkPasswordMatch = () => {
+    if(passwordConf!==password){
+      setPasswordMatch(false);
+    }else{
+      setPasswordMatch(true);
+    }
+  }
+
+  useEffect(()=>{
+    checkPasswordMatch();
+  }, [passwordConf])
+
   const handleRegister = (e) => {
     e.preventDefault();
 
@@ -88,7 +111,7 @@ const Register = (props) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register( firstname, lastname, email, password).then(
+      AuthService.register( firstname, lastname, email.toLowerCase(), password).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -164,7 +187,24 @@ const Register = (props) => {
                   validations={[required, vpassword]}
                 />
               </div>
-
+              <div className="form-group">
+                <label htmlFor="passwordconf">Confirm Password</label>
+                <Input
+                  type="password"
+                  className="form-control"
+                  name="passwordconf"
+                  value={passwordConf}
+                  onChange={onChangePasswordConf}
+                  validations={[required, vpassword]}
+                />
+                {!passwordMatch && password.length>0 ? (
+                        <div className="alert alert-danger" role="alert">
+                        The password's do no match!
+                      </div>
+                ) : ""
+              }
+              </div>
+              <br/>
               <div className="form-group">
                 <button className="btn btn-primary btn-block">Sign Up</button>
               </div>
