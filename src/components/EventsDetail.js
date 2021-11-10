@@ -5,7 +5,7 @@ import { useParams, useHistory } from "react-router-dom";
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
 
-const EventsNew = (props) => {
+const EventsDetail= (props) => {
 
   let { id } = useParams();
   const history = useHistory();
@@ -86,7 +86,12 @@ const onDelete = () => {
             {curEvent.venue}<br/>
             {curEvent.address}<br/>
             {curEvent.postcode}<br/><br/>
-
+            {curEvent.links ? Object.keys(curEvent.links).map( (key)=>{
+              return(
+                <p key={key}>Link: {curEvent.links[key]}</p>
+              )
+            }): ""}
+            <br/>
           {curUser ? (curUser.role==="ADMIN" ?
           <div className="form-group event-edit">
             <input type="button" className="btn btn-primary btn-block" value="Edit" onClick={onEdit}/>
@@ -111,4 +116,4 @@ const onDelete = () => {
   );
 };
 
-export default EventsNew;
+export default EventsDetail;

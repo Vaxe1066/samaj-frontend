@@ -1,10 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-
-
-
-import UserService from "../services/user.service";
-import AuthService from "../services/auth.service";
+import React from "react";
 
 const Contact = () => {
 

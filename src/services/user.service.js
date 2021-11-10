@@ -51,7 +51,7 @@ const putUserDirectory = (id, houseNo, adLine1, adLine2, postcode, city, country
 
 //create event
 
-const postEvent = (title, desc, venue, address, postcode, date) => {
+const postEvent = (title, desc, venue, address, postcode, date, links) => {
     return axios.post(API_URL_EVENTS, {
         title,
         desc,
@@ -60,7 +60,7 @@ const postEvent = (title, desc, venue, address, postcode, date) => {
         postcode,
         //image: {type: Buffer},
         date,
-        //links
+        links
     })
 }
 
@@ -75,7 +75,7 @@ const getEventsDetail = (id) => {
 
 //update event 
 
-const postEventEdit = (id, title, desc, venue, address, postcode, date) => {
+const postEventEdit = (id, title, desc, venue, address, postcode, date, links) => {
     return axios.post(API_URL_EVENTS+id, {
         title,
         desc,
@@ -84,7 +84,7 @@ const postEventEdit = (id, title, desc, venue, address, postcode, date) => {
         postcode,
         //image: {type: Buffer},
         date,
-        //links
+        links
     }, { headers: authHeader() });
 }
 

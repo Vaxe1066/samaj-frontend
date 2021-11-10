@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
@@ -8,7 +7,7 @@ const Events = (props) => {
     const [user, setUser] = useState(undefined);
     const [allEvents, setAllEvents] = useState([]);
   
-    let { id } = useParams();
+
   
     useEffect(() => {
         const currentUser = AuthService.getCurrentUser();

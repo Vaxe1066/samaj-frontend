@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
-import { useParams } from "react-router-dom";
 
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
@@ -136,17 +135,17 @@ const Directory = () => {
     </div>
 
         <div className="col">
-                {searchData ? (searchData.length>0 ? 
-                    searchData.map((item) => {
-                        return(
-                            <div className="" key={item._id}>
-                                <br/>
-                                <button type="submit" id={item._id} onClick={onDirectorySelect} value={item.lastName+", "+item.firstName} >{item.lastName+", "+item.firstName}</button>
-                            </div> 
-                            )
-                    })
-                    :"")
-                    :""}
+            {searchData ? (searchData.length>0 ? 
+                searchData.map((item) => {
+                    return(
+                        <div className="" key={item._id}>
+                            <br/>
+                            <button type="submit" id={item._id} onClick={onDirectorySelect} value={item.lastName+", "+item.firstName} >{item.lastName+", "+item.firstName}</button>
+                        </div> 
+                        )
+                })
+                :"")
+                :""}
         </div>
 
 

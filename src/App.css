@@ -1,3 +1,209 @@
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  
+  color: #888;
+  font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+/*
+  ========================================
+  Typography
+  ========================================
+*/
+
+h1, h2, h3, h4 {
+  color: #648880;
+}
+h1, h3, h4, h5, p {
+  margin-bottom: 22px;
+}
+h1 {
+  font-size: 36px;
+  line-height: 44px;
+}
+h2 {
+  font-size: 24px;
+  line-height: 44px;
+}
+h3 {
+  font-size: 21px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  color: #a9b2b9;
+  font-size: 14px;
+  font-weight: 400;
+  text-transform: uppercase;
+}
+strong {
+  font-weight: 400;
+}
+cite,
+em {
+  font-style: italic;
+}
+
+/*
+  ========================================
+  Leads
+  ========================================
+*/
+
+.lead {
+  text-align: center;
+}
+.lead p {
+  font-size: 21px;
+  line-height: 33px;
+}
+
+/*
+  ========================================
+  Links
+  ========================================
+*/
+
+a {
+  color: #648880;
+  text-decoration: none;
+}
+a:hover {
+  color: #171718;
+}
+p a {
+  border-bottom: 1px solid #dfe2e5;
+}
+.primary-header a,
+.primary-footer a {
+  color: #fff;
+}
+.primary-header a:hover,
+.primary-footer a:hover {
+  color: #648880;
+}
+
+/*
+  ========================================
+  Buttons
+  ========================================
+*/
+
+.btn {
+  border-radius: 5px;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 400;
+  letter-spacing: .5px;
+  margin: 0;
+  text-transform: uppercase;
+}
+.btn-default {
+  border: 0;
+  background: #648880;
+  padding: 11px 30px;
+  font-size: 14px;
+}
+.btn-default:hover {
+  background: #77a198;
+}
+.btn-alt {
+  border: 1px solid #fff;
+  padding: 10px 30px;
+}
+.btn-alt:hover {
+  background: #fff;
+  color: #648880;
+}
+
+
+/*Nav Bar */
+.navbar{
+  background: #99b2c5;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display:flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 400px;
+}
+
+.navbar-logo{
+  font-size: 16px;
+  color: white;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display:flex;
+  align-items:center;
+  flex: 1 1 auto;
+}
+
+.navbar-items{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display:flex;
+  justify-content: space-between;
+  flex: 6 1 auto;
+  align-items:center;
+  justify-content:space-around;
+  
+}
+
+.nav-link{
+  font-size: 16px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+
+/* fix the gap with media query */
+@media all and (max-width:1040px) {
+  
+  .navbar{
+    gap:150px;
+  }
+}
+@media all and (max-width:700px) {
+  
+  .navbar{
+    gap:50px;
+  }
+
+}
+
+@media all and (max-width:570px) {
+  
+  .navbar{
+    gap:0;
+  }
+
+}
+
+
+
+
+
+
+
+.nav-logo{
+  height: 60px;
+  padding-right: 2%;
+  padding-left: 2%;
+}
+
 label {
   display: block;
   margin-top: 10px;
@@ -7,6 +213,7 @@ label {
   max-width: 350px !important;
   padding: 40px 40px;
 }
+
 
 .card {
   background-color: #f7f7f7;
@@ -20,6 +227,7 @@ label {
   -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
 }
+
 
 .profile-img-card {
   width: 96px;
@@ -46,11 +254,8 @@ label {
   width: 20px;
 }
 
-.nav-logo{
-  height: 60px;
-  padding-right: 2%;
-  padding-left: 2%;
-}
+
+
 
 .search-form{
   display: flex;
@@ -64,9 +269,7 @@ label {
   border: 1px solid blue;
 }
 
-.btn{
-  border: 1px solid pink;
-}
+
 
 .contact a > * {
   height: 30px;
