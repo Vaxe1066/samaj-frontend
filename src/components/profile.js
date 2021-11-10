@@ -10,7 +10,20 @@ const Profile = (props) => {
   return (
     <div className="container">
       <header className="jumbotron">
+      {currentUser.profileImg ?       
+          <img className="profile-pic"
+            src={currentUser.profileImg}
+            alt="profile user pic"
+          />
+        :        
+         <img
+          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
+          alt="profile-img"
+          className="profile-pic"
+        />}
+
         <h3>
+          <br/>
           <strong>{currentUser.lastname+", "+ currentUser.firstname}</strong> Profile
         </h3>
       </header>

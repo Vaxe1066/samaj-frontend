@@ -274,3 +274,8 @@ label {
 .contact a > * {
   height: 30px;
 }
+
+.profile-pic{
+  height: 100px;
+  border-radius: 25px;
+}

@@ -149,9 +149,9 @@ const Directory = () => {
         </div>
 
 
-        <div class="row align-items-end">
+        <div className="row align-items-end">
                 {curDirectory ? 
-                    <div class="col">
+                    <div className="col">
                         <p>Selected: {curName}</p>
                         <p>House No: {curDirectory[0].houseNo}</p> 
                         <p>Address Line 1: {curDirectory[0].adLine1}</p>

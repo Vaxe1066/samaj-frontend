@@ -7,6 +7,7 @@ import { isEmail } from "validator";
 import AuthService from "../services/auth.service";
 import { useEffect } from "react/cjs/react.development";
 
+
 const required = (value) => {
   if (!value) {
     return (
@@ -62,6 +63,7 @@ const Register = (props) => {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(undefined);
+  const [fileState, setFileState] = useState({profileImg: ''});
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -98,20 +100,39 @@ const Register = (props) => {
     }
   }
 
+
   useEffect(()=>{
     checkPasswordMatch();
   }, [passwordConf])
 
+
+
+  const onFileChange = (e) => {
+    setFileState({ profileImg: e.target.files[0] })
+}
+
+
+
+
   const handleRegister = (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
+    formData.append('profileImg', fileState.profileImg)
+    formData.append('firstname', firstname);
+    formData.append('lastname', lastname);
+    formData.append('email', email);
+    formData.append('password', password);
+
+    console.log(formData);
     setMessage("");
     setSuccessful(false);
-
+    console.log(fileState);
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      AuthService.register( firstname, lastname, email.toLowerCase(), password).then(
+     // AuthService.register( firstname, lastname, email.toLowerCase(), password, fileState.profileImg).then(
+      AuthService.register(formData).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -140,7 +161,7 @@ const Register = (props) => {
           className="profile-img-card"
         />
 
-        <Form onSubmit={handleRegister} ref={form}>
+        <Form onSubmit={handleRegister} ref={form} id='myForm'>
           {!successful && (
             <div>
               <div className="form-group">
@@ -205,6 +226,17 @@ const Register = (props) => {
               }
               </div>
               <br/>
+              <div className="form-group">
+                <label htmlFor="image">Upload a picture of yourself</label>
+                <Input
+                  type="file"
+                  className="form-control"
+                  name="image"
+                  accept="image/*"
+                  onChange={onFileChange}
+
+                />
+              </div>
               <div className="form-group">
                 <button className="btn btn-primary btn-block">Sign Up</button>
               </div>
