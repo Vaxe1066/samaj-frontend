@@ -15,6 +15,7 @@ import EventsEdit from "./components/EventsEdit";
 import EventsDetail from "./components/EventsDetail";
 import Directory from "./components/Directory";
 import Contact from "./components/Contact";
+import Verify from "./components/Verify";
 //import UploadBase from "./components/UploadBase";
 //import Posts from "./components/Posts";
 //import CreateBlog from "./components/Createblog";
@@ -117,6 +118,7 @@ const App = () => {
           <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/directory" component={Directory} />
+          <Route exact path="/verify" component={Verify} />
           {/*<Route exact path="/uploadbase" component={UploadBase} />*/}
         </Switch>
       </div>

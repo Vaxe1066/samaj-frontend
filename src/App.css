@@ -299,3 +299,28 @@ label {
 .edit-pic-container:hover .edit-profile-pic {
   opacity: 1;
 }
+
+
+/* table css for members verofy */
+#verify-members-table {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#verify-members-table td, #verify-members-table th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#verify-members-table tr:nth-child(even){background-color: #f2f2f2;}
+
+#verify-members-table tr:hover {background-color: #ddd;}
+
+#verify-members-table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #99b2c5;
+  color: white;
+}

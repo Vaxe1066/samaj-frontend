@@ -16,6 +16,7 @@ const Profile = (props) => {
   const [curUserId, setCurUserId] = useState(undefined);
   const [curUser, setCurUser] = useState(undefined);
   const [curUserImage, setCurUserImage] = useState(undefined);
+  const [allUsers, setAllUsers] = useState(undefined);
   const [editImageActive, setEditImageActive] = useState(false);
   const [message, setMessage] = useState("");
   const [successful, setSuccessful] = useState(false);
@@ -25,6 +26,29 @@ const Profile = (props) => {
     const currentUser = AuthService.getCurrentUser();
     setCurUser(currentUser)
   }, [])
+
+  //get all users profile
+  useEffect(()=>{
+      UserService.getAllUsers().then(
+        //AuthService.register(formData).then(
+          (response) => {
+            const noneUsers = response.data.filter(function(noneUser){
+              return noneUser.role==="NONE";
+            })
+            setAllUsers(noneUsers)
+          },
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+  
+              setAllUsers("#error");
+          }
+        )
+  },[])
 
 
   useEffect(()=>{
@@ -44,7 +68,7 @@ const Profile = (props) => {
               error.message ||
               error.toString();
   
-            setMessage(resMessage+"hello");
+            setMessage(resMessage);
             setSuccessful(false);
           }
         )
@@ -82,17 +106,28 @@ const Profile = (props) => {
           />
 
         </div>
+
         {editImageActive ? <ImageUploader onUpload={onEditImage} editImageActive={editImageActive}/>
           : ""}
+
         <h3>
           <br/>
           <strong>{currentUser.lastname+", "+ currentUser.firstname}</strong> Profile
         </h3>
       </header>
-      <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p>
-      <strong>Role:</strong> {currentUser.role}
+        <p>
+          <strong>Email:</strong> {currentUser.email}
+        </p>
+        <strong>Role:</strong> {currentUser.role}
+
+        <br/>
+
+        <div className="verify-users-container">
+          <a href="/verify">Verify Users: Currently {allUsers ? allUsers.length : ""} outstanding </a>
+          
+        </div>
+
+
       <h3>
         <strong>Directory:</strong> 
       </h3>
