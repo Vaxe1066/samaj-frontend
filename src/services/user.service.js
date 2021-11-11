@@ -94,6 +94,30 @@ const deleteEvent = (id) => {
 }
 
 
+//user images 
+
+const postImage = (imageName, imageData) => {
+    return axios.post("http://localhost:5000/api/uploadbase", {
+        imageName,
+        imageData
+
+    })
+}
+
+const updateImage = (id, imageData) => {
+    return axios.put("http://localhost:5000/api/user",{
+        id,
+        imageData
+    }, { headers: authHeader() })
+}
+
+// get user image 
+
+const getUserImage = (id) => {
+    return axios.get("http://localhost:5000/api/user/image/"+id)
+}
+
+
 export default {
     //getUserInfo,
     getUserDirectory,
@@ -104,6 +128,9 @@ export default {
     getEvents,
     getEventsDetail,
     postEventEdit,
-    deleteEvent
+    deleteEvent,
+    postImage,
+    updateImage,
+    getUserImage
 
   };

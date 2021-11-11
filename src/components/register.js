@@ -3,6 +3,7 @@ import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import { isEmail } from "validator";
+import FileBase64 from 'react-file-base64';
 
 import AuthService from "../services/auth.service";
 import { useEffect } from "react/cjs/react.development";
@@ -63,7 +64,8 @@ const Register = (props) => {
   const [password, setPassword] = useState("");
   const [passwordConf, setPasswordConf] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(undefined);
-  const [fileState, setFileState] = useState({profileImg: ''});
+  //const [fileState, setFileState] = useState({profileImg: ''});
+  const [file, setFile] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -100,6 +102,10 @@ const Register = (props) => {
     }
   }
 
+  const onFileDone = (e) =>{
+    let fileUp = e;
+    setFile(fileUp);
+}
 
   useEffect(()=>{
     checkPasswordMatch();
@@ -107,9 +113,9 @@ const Register = (props) => {
 
 
 
-  const onFileChange = (e) => {
+/*  const onFileChange = (e) => {
     setFileState({ profileImg: e.target.files[0] })
-}
+}*/
 
 
 
@@ -117,22 +123,22 @@ const Register = (props) => {
   const handleRegister = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
+    /*const formData = new FormData();
     formData.append('profileImg', fileState.profileImg)
     formData.append('firstname', firstname);
     formData.append('lastname', lastname);
     formData.append('email', email);
     formData.append('password', password);
 
-    console.log(formData);
+    console.log(formData);*/
     setMessage("");
     setSuccessful(false);
-    console.log(fileState);
+    //console.log(fileState);
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-     // AuthService.register( firstname, lastname, email.toLowerCase(), password, fileState.profileImg).then(
-      AuthService.register(formData).then(
+     AuthService.register( firstname, lastname, email.toLowerCase(), password, file.base64).then(
+      //AuthService.register(formData).then(
         (response) => {
           setMessage(response.data.message);
           setSuccessful(true);
@@ -227,15 +233,10 @@ const Register = (props) => {
               </div>
               <br/>
               <div className="form-group">
-                <label htmlFor="image">Upload a picture of yourself</label>
-                <Input
-                  type="file"
-                  className="form-control"
-                  name="image"
-                  accept="image/*"
-                  onChange={onFileChange}
-
-                />
+            <label htmlFor="profile">Profile Pic</label>
+              <FileBase64
+                  multiple={ false }
+                  onDone={onFileDone} />
               </div>
               <div className="form-group">
                 <button className="btn btn-primary btn-block">Sign Up</button>

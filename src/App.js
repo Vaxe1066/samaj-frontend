@@ -15,6 +15,7 @@ import EventsEdit from "./components/EventsEdit";
 import EventsDetail from "./components/EventsDetail";
 import Directory from "./components/Directory";
 import Contact from "./components/Contact";
+//import UploadBase from "./components/UploadBase";
 //import Posts from "./components/Posts";
 //import CreateBlog from "./components/Createblog";
 
@@ -80,6 +81,11 @@ const App = () => {
                   LogOut
                 </a>
               </li>
+              {/*<li className="nav-item firebase">
+                <a href="/uploadbase" className="nav-link" onClick={logOut}>
+                  FirebaseImage
+                </a>
+          </li>*/}
             </div>
           ) : (
             <div className="navbar-items login">
@@ -111,6 +117,7 @@ const App = () => {
           <Route exact path="/profile/:id" component={Profile} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/directory" component={Directory} />
+          {/*<Route exact path="/uploadbase" component={UploadBase} />*/}
         </Switch>
       </div>
     </div>

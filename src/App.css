@@ -275,7 +275,27 @@ label {
   height: 30px;
 }
 
+
+.edit-pic-container{
+  display:flex;
+  flex-flow: row;
+  align-items:baseline;
+}
+
 .profile-pic{
   height: 100px;
   border-radius: 25px;
+  z-index: 1;
+}
+
+.edit-profile-pic{
+  height:20px;
+  transition: .5s ease;
+  opacity:0;
+  z-index: 2;
+}
+
+
+.edit-pic-container:hover .edit-profile-pic {
+  opacity: 1;
 }

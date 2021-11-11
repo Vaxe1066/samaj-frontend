@@ -111,7 +111,7 @@ const onChangeAdLine2 = (e) => {
     form.current.validateAll();
 
     if (checkBtn.current.context._errors.length === 0) {
-      if(editActive){
+      if(editActive && curUserDirectory){
         UserService.putUserDirectory(id, houseNo, adLine1, adLine2, postcode, city, country, mobile, landline).then(
           (response) => {
             setMessage(response.data.message);
@@ -131,7 +131,7 @@ const onChangeAdLine2 = (e) => {
             setSuccessful(false);
           }
         );
-      } else if(!editActive){
+      } else if(editActive && !curUserDirectory){
         UserService.postUserDirectory(id, houseNo, adLine1, adLine2, postcode, city, country, mobile, landline).then(
           (response) => {
             setMessage(response.data.message);

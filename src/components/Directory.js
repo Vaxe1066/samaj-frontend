@@ -44,14 +44,16 @@ const Directory = () => {
     
         form.current.validateAll();
     
-        if (checkBtn.current.context._errors.length === 0) {
+        if (checkBtn.current.context._errors.length === 0 && search) {
             UserService.getUserSearch(search).then(
             (response) => {
-              if(response.data){
+              if(response.data.length>0){
                 setSearchData(response.data);
                 setLoading(false);
                 setMessage("");
+                console.log(response.data)
               }else{
+                console.log("else")
                 setLoading(false);
                 setMessage("No Results Found")}
             },
