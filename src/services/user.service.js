@@ -124,6 +124,16 @@ const getAllUsers = () => {
 }
 
 
+//update user role
+const updateUserRole = (id, role) => {
+    return axios.put(API_URL_USER+"role", {
+        id,
+        role
+    })
+}
+
+
+
 
 export default {
     //getUserInfo,
@@ -139,6 +149,7 @@ export default {
     postImage,
     updateImage,
     getUserImage,
-    getAllUsers
+    getAllUsers,
+    updateUserRole
 
   };

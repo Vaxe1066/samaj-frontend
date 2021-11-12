@@ -71,6 +71,7 @@ const EventsEdit = (props) => {
   useEffect(()=>{
     setCountLinks(Array(Object.size(eventObj)).fill().map((e,i)=>i+1))
     console.log(eventObj);
+    console.log(countLinks)
   }, [eventObj])
 
 
@@ -250,7 +251,7 @@ const EventsEdit = (props) => {
                         type="text"
                         className="form-control"
                         name="link"
-                        value={eventObj[item]}
+                        value={eventObj[item] || ""}
                         onChange={onLinkChange} />
                     </div>
                   )

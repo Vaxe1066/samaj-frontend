@@ -1,11 +1,14 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
+import userService from "../services/user.service";
 import UserService from "../services/user.service";
 
 
 
 const Verify = () => {
 
-  const [allUsers, setAllUsers] = useState(undefined);
+  const [allUsers, setAllUsers] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
 
   //get all users profile
   useEffect(()=>{
@@ -30,9 +33,11 @@ const Verify = () => {
       )
 
       
-},[])
+},[message])
+
 
 const testSelected = (e) => {
+
   const selecteduser =  allUsers.filter(function(sel){
     return sel._id===e.target.id;
   })
@@ -51,6 +56,41 @@ const testSelected = (e) => {
   console.log(allUsers)
 
 
+}
+
+
+
+
+const onHandleSaveChanges = () => {
+
+  //check for nones
+    setLoading(true);
+    setMessage("");
+  
+    allUsers.forEach((user) => {
+      if(user.role!=="NONE"){
+        UserService.updateUserRole(user._id, user.role).then(
+          (response) => {
+              setLoading(false);
+              setMessage(response.data.message);
+              setAllUsers([])
+          },
+          (error) => {
+            const resMessage =
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString();
+      
+            setLoading(false);
+            setMessage(resMessage);
+          }
+        );
+        setLoading(false);
+        setMessage("");
+      } else{setLoading(false);}
+    })
 }
 
 
@@ -88,7 +128,26 @@ const testSelected = (e) => {
           }): ""}
         </tbody>
       </table>
-      <button type="submit">Save Changes</button>
+            {allUsers.length ? <div className="form-group"  type="submit" onClick={onHandleSaveChanges}>
+              <button className="btn btn-primary btn-block" disabled={loading}>
+                  {loading && (
+                  <span className="spinner-border spinner-border-sm"></span>
+                  )}
+                  <span>Save Changes</span>
+              </button>
+            </div> :
+              <div className="form-group">
+                <div className="alert alert-success" role="alert">
+                <p>There are no new users to verify</p>
+                </div>
+              </div> }
+            {message && (
+            <div className="form-group">
+                <div className="alert alert-danger" role="alert">
+                {message}
+                </div>
+            </div>
+            )}
     </div>
   );
 };

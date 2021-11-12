@@ -205,7 +205,7 @@ const EventsNew = (props) => {
                         type="text"
                         className="form-control"
                         name="link"
-                        value={eventObj[item]}
+                        value={eventObj[item] || ""}
                         onChange={onLinkChange} />
                     </div>
                   )
